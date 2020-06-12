@@ -22,9 +22,13 @@ class SellItemCell: UICollectionViewCell {
         addToCartButton.layer.cornerRadius = 8
     }
     
-    func setUpCell(with card: UIImage) {
-        itemImage.image = card
-        itemImage.contentMode = .scaleAspectFit
-        addToCartButton.bounds.size = CGSize(width: 500, height: 500)
+    func setUpCell(with item: Item) {
+        if let mainImage = item.mainImage {
+            itemImage.image = UIImage(named: mainImage)
+            itemImage.contentMode = .scaleAspectFit
+            addToCartButton.bounds.size = CGSize(width: 500, height: 500)
+        }
+        itemPrice.text = "\(item.price) ლ"
+        itemSize.text = item.availableSizes.first
     }
 }

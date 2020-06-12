@@ -7,29 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB09A627248F9E0700D0B91D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB09A626248F9E0700D0B91D /* Item.swift */; };
 		CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C1247ACB7800B44888 /* AppDelegate.swift */; };
 		CB33D2C4247ACB7800B44888 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C3247ACB7800B44888 /* SceneDelegate.swift */; };
 		CB33D2C6247ACB7800B44888 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C5247ACB7800B44888 /* FirstViewController.swift */; };
-		CB33D2C8247ACB7800B44888 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C7247ACB7800B44888 /* SecondViewController.swift */; };
 		CB33D2CB247ACB7800B44888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2C9247ACB7800B44888 /* Main.storyboard */; };
 		CB33D2CD247ACB7B00B44888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2CC247ACB7B00B44888 /* Assets.xcassets */; };
 		CB33D2D0247ACB7B00B44888 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2CE247ACB7B00B44888 /* LaunchScreen.storyboard */; };
-		CB33D2DB247ADE0700B44888 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2DA247ADE0700B44888 /* ThirdViewController.swift */; };
 		CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */; };
 		CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB09A626248F9E0700D0B91D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CB33D2BE247ACB7800B44888 /* SaZamtro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaZamtro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB33D2C1247ACB7800B44888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB33D2C3247ACB7800B44888 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CB33D2C5247ACB7800B44888 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		CB33D2C7247ACB7800B44888 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		CB33D2CA247ACB7800B44888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB33D2CC247ACB7B00B44888 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB33D2CF247ACB7B00B44888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB33D2D1247ACB7B00B44888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CB33D2DA247ADE0700B44888 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellItemCell.swift; sourceTree = "<group>"; };
 		CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB09A625248F8FAE00D0B91D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB09A626248F9E0700D0B91D /* Item.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CB33D2B5247ACB7800B44888 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +71,7 @@
 		CB33D2C0247ACB7800B44888 /* SaZamtro */ = {
 			isa = PBXGroup;
 			children = (
+				CB09A625248F8FAE00D0B91D /* Model */,
 				CB33D2DC247AE68900B44888 /* Controllers */,
 				CB33D2DD247AE69C00B44888 /* Views */,
 				CB33D2D1247ACB7B00B44888 /* Info.plist */,
@@ -87,8 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				CB33D2C5247ACB7800B44888 /* FirstViewController.swift */,
-				CB33D2C7247ACB7800B44888 /* SecondViewController.swift */,
-				CB33D2DA247ADE0700B44888 /* ThirdViewController.swift */,
 				CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */,
 			);
 			path = Controllers;
@@ -174,10 +179,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB33D2C8247ACB7800B44888 /* SecondViewController.swift in Sources */,
 				CB33D2C6247ACB7800B44888 /* FirstViewController.swift in Sources */,
 				CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */,
-				CB33D2DB247ADE0700B44888 /* ThirdViewController.swift in Sources */,
+				CB09A627248F9E0700D0B91D /* Item.swift in Sources */,
 				CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */,
 				CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */,
 				CB33D2C4247ACB7800B44888 /* SceneDelegate.swift in Sources */,
