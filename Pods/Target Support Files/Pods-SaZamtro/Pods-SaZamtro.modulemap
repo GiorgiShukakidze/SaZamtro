@@ -1,0 +1,6 @@
+framework module Pods_SaZamtro {
+  umbrella header "Pods-SaZamtro-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -17,18 +17,15 @@ class SellItemCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        layer.cornerRadius = 10
-        itemImage.layer.cornerRadius = 10
-        addToCartButton.layer.cornerRadius = 8
+        setUpCell()
     }
     
-    func setUpCell(with item: Item) {
-        if let mainImage = item.mainImage {
-            itemImage.image = UIImage(named: mainImage)
-            itemImage.contentMode = .scaleAspectFit
-            addToCartButton.bounds.size = CGSize(width: 500, height: 500)
-        }
-        itemPrice.text = "\(item.price) ლ"
-        itemSize.text = item.availableSizes.first
+    func setUpCell() {
+        layer.cornerRadius = 20
+        addToCartButton.layer.cornerRadius = 8
+        addToCartButton.bounds.size = CGSize(width: 500, height: 500)
+//        itemImage.image = UIImage(named: "notFound")
+        itemImage.layer.cornerRadius = 20
+        itemImage.contentMode = .scaleAspectFit
     }
 }

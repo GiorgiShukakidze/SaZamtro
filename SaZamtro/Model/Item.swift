@@ -8,13 +8,18 @@
 
 import Foundation
 
-struct Item {
+struct Item: Codable {
+    var id: String?
     var images: [String]
+    let description: String
+    let title: String
+    let brand: String
+    let availableSizes: [String]
+    let price: Double
+    
     var mainImage: String? {
         return images.first
     }
-    let availableSizes: [String]
-    let price: Double
     var discountedPrice: Double {
         return price - discount
     }
@@ -34,7 +39,14 @@ struct Item {
             discount = price * newValue
         }
     }
-    let description: String
-    let title: String
-    let brand: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case images
+        case description
+        case title
+        case brand
+        case availableSizes
+        case price
+    }
 }

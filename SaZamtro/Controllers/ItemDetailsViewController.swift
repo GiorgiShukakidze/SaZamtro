@@ -11,9 +11,14 @@ import UIKit
 class ItemDetailsViewController: UIViewController {
     
     var shopItem: Item?
+    var shopItemImage: UIImage?
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var itemImage: UIImageView! {
+        didSet {
+            itemImage.layer.cornerRadius = 20
+        }
+    }
     @IBOutlet weak var itemDescription: UILabel!
     @IBOutlet weak var itemSize: UILabel!
     @IBOutlet weak var itemBrand: UILabel!
@@ -27,8 +32,8 @@ class ItemDetailsViewController: UIViewController {
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height/2
         if let item = shopItem {
-            if let mainImage = item.mainImage {
-                itemImage.image = UIImage(named: mainImage)
+            if let mainImage = shopItemImage {
+                itemImage.image = mainImage
             }
             title = item.title
             itemBrand.text = "ბრენდი: \(item.brand)"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>864970290078-226h9bnefjmj91dordrf4pql7umikpo9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.864970290078-226h9bnefjmj91dordrf4pql7umikpo9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCnBn9Dl_Sp3y7hm-RuEi4OxAbDMBDBUUc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>864970290078</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gshukakidze.SaZamtro</string>
+	<key>PROJECT_ID</key>
+	<string>sazamtro-98455</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sazamtro-98455.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:864970290078:ios:58384d84573e1ce0c1dc8f</string>
+	<key>DATABASE_URL</key>
+	<string>https://sazamtro-98455.firebaseio.com</string>
+</dict>
+</plist>

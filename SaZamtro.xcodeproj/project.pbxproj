@@ -3,33 +3,47 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A3012B543E2677463FC45EB /* Pods_SaZamtro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6807E586364CD978CCD952 /* Pods_SaZamtro.framework */; };
+		CB01A5C72497C50300AC747F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB01A5C62497C50300AC747F /* GoogleService-Info.plist */; };
+		CB01A5C92498B9EE00AC747F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB01A5C82498B9EE00AC747F /* User.swift */; };
 		CB09A627248F9E0700D0B91D /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB09A626248F9E0700D0B91D /* Item.swift */; };
 		CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C1247ACB7800B44888 /* AppDelegate.swift */; };
 		CB33D2C4247ACB7800B44888 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C3247ACB7800B44888 /* SceneDelegate.swift */; };
-		CB33D2C6247ACB7800B44888 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C5247ACB7800B44888 /* FirstViewController.swift */; };
+		CB33D2C6247ACB7800B44888 /* ItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2C5247ACB7800B44888 /* ItemListViewController.swift */; };
 		CB33D2CB247ACB7800B44888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2C9247ACB7800B44888 /* Main.storyboard */; };
 		CB33D2CD247ACB7B00B44888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2CC247ACB7B00B44888 /* Assets.xcassets */; };
 		CB33D2D0247ACB7B00B44888 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB33D2CE247ACB7B00B44888 /* LaunchScreen.storyboard */; };
 		CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */; };
 		CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */; };
+		CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905224A37B8000D13919 /* DownloadManager.swift */; };
+		CB79905524A3C57B00D13919 /* ItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905424A3C57B00D13919 /* ItemImage.swift */; };
+		CBB931D2249A1AA10041EAFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB931D1249A1AA10041EAFB /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5CFC44CAEF9C5E6B19B213C3 /* Pods-SaZamtro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaZamtro.release.xcconfig"; path = "Target Support Files/Pods-SaZamtro/Pods-SaZamtro.release.xcconfig"; sourceTree = "<group>"; };
+		8C6807E586364CD978CCD952 /* Pods_SaZamtro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaZamtro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CAB0D85B5E653247D81D4A3 /* Pods-SaZamtro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaZamtro.debug.xcconfig"; path = "Target Support Files/Pods-SaZamtro/Pods-SaZamtro.debug.xcconfig"; sourceTree = "<group>"; };
+		CB01A5C62497C50300AC747F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB01A5C82498B9EE00AC747F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CB09A626248F9E0700D0B91D /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CB33D2BE247ACB7800B44888 /* SaZamtro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaZamtro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB33D2C1247ACB7800B44888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB33D2C3247ACB7800B44888 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CB33D2C5247ACB7800B44888 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		CB33D2C5247ACB7800B44888 /* ItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewController.swift; sourceTree = "<group>"; };
 		CB33D2CA247ACB7800B44888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB33D2CC247ACB7B00B44888 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB33D2CF247ACB7B00B44888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB33D2D1247ACB7B00B44888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellItemCell.swift; sourceTree = "<group>"; };
 		CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
+		CB79905224A37B8000D13919 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		CB79905424A3C57B00D13919 /* ItemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemImage.swift; sourceTree = "<group>"; };
+		CBB931D1249A1AA10041EAFB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,16 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A3012B543E2677463FC45EB /* Pods_SaZamtro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F214A15E807B2D83EFD6146 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C6807E586364CD978CCD952 /* Pods_SaZamtro.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5286D0776E477531D0580EF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8CAB0D85B5E653247D81D4A3 /* Pods-SaZamtro.debug.xcconfig */,
+				5CFC44CAEF9C5E6B19B213C3 /* Pods-SaZamtro.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CB09A625248F8FAE00D0B91D /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CB09A626248F9E0700D0B91D /* Item.swift */,
+				CB01A5C82498B9EE00AC747F /* User.swift */,
+				CB79905424A3C57B00D13919 /* ItemImage.swift */,
+				CB79905224A37B8000D13919 /* DownloadManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -57,6 +92,8 @@
 				CB33D2C0247ACB7800B44888 /* SaZamtro */,
 				CB33D2D7247AD6FB00B44888 /* SupportingFiles */,
 				CB33D2BF247ACB7800B44888 /* Products */,
+				5286D0776E477531D0580EF6 /* Pods */,
+				0F214A15E807B2D83EFD6146 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +112,7 @@
 				CB33D2DC247AE68900B44888 /* Controllers */,
 				CB33D2DD247AE69C00B44888 /* Views */,
 				CB33D2D1247ACB7B00B44888 /* Info.plist */,
+				CB01A5C62497C50300AC747F /* GoogleService-Info.plist */,
 			);
 			path = SaZamtro;
 			sourceTree = "<group>";
@@ -86,6 +124,7 @@
 				CB33D2C1247ACB7800B44888 /* AppDelegate.swift */,
 				CB33D2C3247ACB7800B44888 /* SceneDelegate.swift */,
 				CB33D2CE247ACB7B00B44888 /* LaunchScreen.storyboard */,
+				CBB931D1249A1AA10041EAFB /* Constants.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -93,7 +132,7 @@
 		CB33D2DC247AE68900B44888 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CB33D2C5247ACB7800B44888 /* FirstViewController.swift */,
+				CB33D2C5247ACB7800B44888 /* ItemListViewController.swift */,
 				CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */,
 			);
 			path = Controllers;
@@ -115,9 +154,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB33D2D4247ACB7B00B44888 /* Build configuration list for PBXNativeTarget "SaZamtro" */;
 			buildPhases = (
+				35155006110679AE930763E6 /* [CP] Check Pods Manifest.lock */,
 				CB33D2BA247ACB7800B44888 /* Sources */,
 				CB33D2BB247ACB7800B44888 /* Frameworks */,
 				CB33D2BC247ACB7800B44888 /* Resources */,
+				303AC700C517F697E0D7667A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB33D2D0247ACB7B00B44888 /* LaunchScreen.storyboard in Resources */,
+				CB01A5C72497C50300AC747F /* GoogleService-Info.plist in Resources */,
 				CB33D2CD247ACB7B00B44888 /* Assets.xcassets in Resources */,
 				CB33D2CB247ACB7800B44888 /* Main.storyboard in Resources */,
 			);
@@ -174,17 +216,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		303AC700C517F697E0D7667A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SaZamtro/Pods-SaZamtro-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SaZamtro/Pods-SaZamtro-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SaZamtro/Pods-SaZamtro-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35155006110679AE930763E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SaZamtro-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CB33D2BA247ACB7800B44888 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB33D2C6247ACB7800B44888 /* FirstViewController.swift in Sources */,
+				CB33D2C6247ACB7800B44888 /* ItemListViewController.swift in Sources */,
 				CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */,
+				CB79905524A3C57B00D13919 /* ItemImage.swift in Sources */,
+				CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */,
 				CB09A627248F9E0700D0B91D /* Item.swift in Sources */,
 				CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */,
 				CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */,
 				CB33D2C4247ACB7800B44888 /* SceneDelegate.swift in Sources */,
+				CB01A5C92498B9EE00AC747F /* User.swift in Sources */,
+				CBB931D2249A1AA10041EAFB /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +414,7 @@
 		};
 		CB33D2D5247ACB7B00B44888 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CAB0D85B5E653247D81D4A3 /* Pods-SaZamtro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -345,6 +434,7 @@
 		};
 		CB33D2D6247ACB7B00B44888 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CFC44CAEF9C5E6B19B213C3 /* Pods-SaZamtro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
