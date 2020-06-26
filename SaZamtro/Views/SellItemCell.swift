@@ -24,7 +24,6 @@ class SellItemCell: UICollectionViewCell {
         layer.cornerRadius = 20
         addToCartButton.layer.cornerRadius = 8
         addToCartButton.bounds.size = CGSize(width: 500, height: 500)
-//        itemImage.image = UIImage(named: "notFound")
         itemImage.layer.cornerRadius = 20
         itemImage.contentMode = .scaleAspectFit
     }

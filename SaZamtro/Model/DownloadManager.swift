@@ -10,11 +10,17 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import FirebaseFirestoreSwift
+import Network
 
 class DownloadManager {
     
+    static let shared = DownloadManager()
+    
     let db = Firestore.firestore()
+    let monitor = NWPathMonitor()
+    let queue = DispatchQueue(label: "com.gshukakidze.SaZamtro.Monitor")
     lazy var query = db.collection(FBase.itemsCollection)
+    lazy var isNetworkAvailable = true
     
     func fetchItems(completion: @escaping ([Item], Error?) -> ()) {
         var items = [Item]()
@@ -61,9 +67,20 @@ class DownloadManager {
                 print("Error fetching image: \(fetchError.localizedDescription)")
             } else if let image = UIImage(data: data!) {
                 completion(image, nil)
-                print("Images Fetched")
             }
         }
+    }
+    
+    func monitorNetwork() {
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                self.isNetworkAvailable = true
+            } else {
+                self.isNetworkAvailable = false
+            }
+        }
+        
+        monitor.start(queue: queue)
     }
 }
 

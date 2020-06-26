@@ -24,6 +24,11 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var itemBrand: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var nothingToShow: UIView! {
+        didSet {
+            nothingToShow.isHidden = true
+        }
+    }
     @IBAction func addToCart(_ sender: UIButton) {
     }
     
@@ -40,6 +45,8 @@ class ItemDetailsViewController: UIViewController {
             itemPrice.text = "ფასი: \(item.price) ლარი"
             itemSize.text = "ზომა: \(item.availableSizes.first!)"
             itemDescription.text = item.description
+        } else {
+            nothingToShow.isHidden = false
         }
     }
 

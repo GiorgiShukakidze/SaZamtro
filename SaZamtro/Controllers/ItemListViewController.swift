@@ -14,16 +14,22 @@ class ItemListViewController: UIViewController {
     var itemImages = [ItemImage]()
     var selectedItem: Item?
     var selectedImage: UIImage?
-    let downloadManager = DownloadManager()
+    let downloadManager = DownloadManager.shared
+    
     
     @IBOutlet weak var itemsCollectionView: UICollectionView!
+    @IBOutlet weak var errorView: UIView!
+    @IBAction func retryTapped(_ sender: UIButton) {
+        getItems()
+    }
     
     override func viewDidLoad() {
         
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsCollectionView.prefetchDataSource = self
-        getItems()
+        
+        getItems(isRefresh: false)
         configureRefreshControl()
     }
     
@@ -41,42 +47,50 @@ class ItemListViewController: UIViewController {
     func configureRefreshControl () {
         itemsCollectionView.refreshControl = UIRefreshControl()
         itemsCollectionView.refreshControl?.tintColor = #colorLiteral(red: 0.4039215686, green: 0.6078431373, blue: 0.6078431373, alpha: 1)
-        itemsCollectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
-    }
-    
-    @objc func handleRefreshControl() {
-        // Update your content…
-        print("refressshing")
-        items = []
-        itemImages = []
-        getItems()
-        
-        // Dismiss the refresh control.
-        DispatchQueue.main.async {
-            self.itemsCollectionView.refreshControl?.endRefreshing()
-        }
+        itemsCollectionView.refreshControl?.addTarget(self, action: #selector(getItems(isRefresh:)), for: .valueChanged)
     }
     
     //MARK: - Get items and images
     
-    func getItems(isRefresh: Bool = false) {
-
-        downloadManager.fetchItems { [weak self] (items, error) in
-            guard let self = self else { return }
+    @objc func getItems(isRefresh: Bool = true) {
+        
+        if downloadManager.isNetworkAvailable {
+            errorView.isHidden = true
             
-            if error == nil {
-                self.items = items
-                self.itemsCollectionView.reloadData()
-
-                for n in 0..<self.items.count {
-                    if let imageUrl = items[n].mainImage {
-                        let image = ItemImage(name: items[n].title, url: imageUrl)
-                        self.itemImages.append(image)
-                        self.getItemImage(at: n)
-                        print("images \(self.itemImages.count) items \(self.items.count)")
+            if isRefresh {
+                items = []
+                itemImages = []
+            }
+            
+            downloadManager.fetchItems { [weak self] (items, error) in
+                guard let self = self else { return }
+                
+                if error == nil {
+                    self.items = items
+                    
+                    DispatchQueue.main.async {
+                        self.itemsCollectionView.refreshControl?.endRefreshing()
+                        self.itemsCollectionView.reloadData()
+                    }
+                    
+                    for n in 0..<self.items.count {
+                        if let imageUrl = items[n].mainImage {
+                            
+                            let image = ItemImage(name: items[n].title, url: imageUrl)
+                            self.itemImages.append(image)
+                            self.getItemImage(at: n)
+                            
+                        }
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.itemsCollectionView.refreshControl?.endRefreshing()
                     }
                 }
             }
+        } else {
+            self.itemsCollectionView.refreshControl?.endRefreshing()
         }
     }
     
@@ -105,6 +119,15 @@ class ItemListViewController: UIViewController {
             break
         }
     }
+    
+    //MARK: - Utilities
+    
+    func noInternetAlert() {
+        let alert = UIAlertController(title: "Oops!", message: "No internet connection. :(", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 //MARK: - Collection view delegate and data source methods
@@ -122,8 +145,8 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
             let shopItem = items[indexPath.item]
             cell.itemPrice.text = "\(shopItem.price) ლ"
             cell.itemSize.text = shopItem.availableSizes.first
-        
-        
+            
+            
             let imageObject = itemImages[indexPath.item]
             
             if imageObject.state == .new || imageObject.state == .failed {
