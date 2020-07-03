@@ -10,20 +10,19 @@ import UIKit
 
 class ItemListViewController: UIViewController {
     
-    var selectedItem: Item?
-    var selectedImage: UIImage?
-    let itemsViewModel = ItemsViewModel()
+    private var selectedItem: Item?
+    private var selectedImage: UIImage?
+    private lazy var itemsViewModel = ItemsViewModel()
     
     //MARK: - IB Outlets
-    @IBOutlet weak var itemsCollectionView: UICollectionView!
-    @IBOutlet weak var errorView: UIView!
-    @IBAction func retryTapped(_ sender: UIButton) {
+    @IBOutlet private weak var itemsCollectionView: UICollectionView!
+    @IBOutlet private weak var errorView: UIView!
+    @IBAction private func retryTapped(_ sender: UIButton) {
         errorView.isHidden = true
-        itemsViewModel.getItems(isRefresh: true)
+        itemsViewModel.getItems()
     }
     
     override func viewDidLoad() {
-        
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsCollectionView.prefetchDataSource = self
@@ -45,7 +44,7 @@ class ItemListViewController: UIViewController {
     }
     
     //MARK: - Utilities
-    func noInternetAlert() {
+    private func noInternetAlert() {
         let alert = UIAlertController(title: "Oops!", message: "No internet connection. :(", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -98,6 +97,10 @@ extension ItemListViewController: UICollectionViewDelegate {
         
         performSegue(withIdentifier: ViewConstants.segueIdentifier, sender: self)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//  TO DO
+    }
 }
 
 //MARK: - Collection view data source methods
@@ -133,7 +136,6 @@ extension ItemListViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
 }
 
 //MARK: - Collection view data source prefetching methods

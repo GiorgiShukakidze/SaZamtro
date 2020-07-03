@@ -22,6 +22,7 @@ class DownloadManager {
     private lazy var query = db.collection(FBase.itemsCollection)
     private lazy var networkAvailable = true
     
+    
     func isNetworkAvailable() -> Bool {
         return networkAvailable
     }
