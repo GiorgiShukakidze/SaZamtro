@@ -16,13 +16,18 @@ class DownloadManager {
     
     static let shared = DownloadManager()
     
-    let db = Firestore.firestore()
-    let monitor = NWPathMonitor()
-    let queue = DispatchQueue(label: "com.gshukakidze.SaZamtro.Monitor")
-    lazy var query = db.collection(FBase.itemsCollection)
-    lazy var isNetworkAvailable = true
+    private let db = Firestore.firestore()
+    private let monitor = NWPathMonitor()
+    private let queue = DispatchQueue(label: "com.gshukakidze.SaZamtro.Monitor")
+    private lazy var query = db.collection(FBase.itemsCollection)
+    private lazy var networkAvailable = true
+    
+    func isNetworkAvailable() -> Bool {
+        return networkAvailable
+    }
     
     func fetchItems(completion: @escaping ([Item], Error?) -> ()) {
+
         var items = [Item]()
         
         query.getDocuments { (querySnapshot, error) in
@@ -74,9 +79,9 @@ class DownloadManager {
     func monitorNetwork() {
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
-                self.isNetworkAvailable = true
+                self.networkAvailable = true
             } else {
-                self.isNetworkAvailable = false
+                self.networkAvailable = false
             }
         }
         

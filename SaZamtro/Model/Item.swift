@@ -20,25 +20,28 @@ struct Item: Codable {
     var mainImage: String? {
         return images.first
     }
-    var discountedPrice: Double {
-        return price - discount
-    }
-    var discount: Double {
-        get {
-            price * discountPercentage
-        }
-        set {
-            discountPercentage = newValue / price
-        }
-    }
-    var discountPercentage: Double {
-        get {
-            discount / price
-        }
-        set {
-            discount = price * newValue
-        }
-    }
+    
+// TO DO
+    
+//    var discountedPrice: Double {
+//        return price - discount
+//    }
+//    var discount: Double {
+//        get {
+//            price * discountPercentage
+//        }
+//        set {
+//            discountPercentage = newValue / price
+//        }
+//    }
+//    var discountPercentage: Double {
+//        get {
+//            discount / price
+//        }
+//        set {
+//            discount = price * newValue
+//        }
+//    }
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -22,4 +22,8 @@ struct ItemImage {
         self.name = name
         self.url = url
     }
+    
+    mutating func setImage(_ image: UIImage? = UIImage(named: ItemConstants.defaultImage)) {
+        self.image = image
+    }
 }

@@ -41,9 +41,9 @@ class ItemDetailsViewController: UIViewController {
                 itemImage.image = mainImage
             }
             title = item.title
-            itemBrand.text = "ბრენდი: \(item.brand)"
-            itemPrice.text = "ფასი: \(item.price) ლარი"
-            itemSize.text = "ზომა: \(item.availableSizes.first!)"
+            itemBrand.text = "\(ItemConstants.brandText): \(item.brand)"
+            itemPrice.text = "\(ItemConstants.priceText): \(item.price) \(ItemConstants.longCurrencyText)"
+            itemSize.text = "\(ItemConstants.sizeText): \(item.availableSizes.first!)"
             itemDescription.text = item.description
         } else {
             nothingToShow.isHidden = false

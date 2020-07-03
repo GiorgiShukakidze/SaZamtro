@@ -10,17 +10,16 @@ import UIKit
 
 class ItemListViewController: UIViewController {
     
-    var items = [Item]()
-    var itemImages = [ItemImage]()
     var selectedItem: Item?
     var selectedImage: UIImage?
-    let downloadManager = DownloadManager.shared
+    let itemsViewModel = ItemsViewModel()
     
-    
+    //MARK: - IB Outlets
     @IBOutlet weak var itemsCollectionView: UICollectionView!
     @IBOutlet weak var errorView: UIView!
     @IBAction func retryTapped(_ sender: UIButton) {
-        getItems()
+        errorView.isHidden = true
+        itemsViewModel.getItems(isRefresh: true)
     }
     
     override func viewDidLoad() {
@@ -28,13 +27,16 @@ class ItemListViewController: UIViewController {
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsCollectionView.prefetchDataSource = self
+        itemsViewModel.delegate = self
         
-        getItems(isRefresh: false)
-        configureRefreshControl()
+        errorView.isHidden = true
+        itemsViewModel.getItems()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let shopItem = selectedItem, let itemImage = selectedImage, segue.identifier == "itemDetails" {
+        if let shopItem = selectedItem,
+            let itemImage = selectedImage,
+            segue.identifier == ViewConstants.segueIdentifier {
             
             let destinationVC = segue.destination as! ItemDetailsViewController
             destinationVC.shopItem = shopItem
@@ -42,138 +44,117 @@ class ItemListViewController: UIViewController {
         }
     }
     
-    //MARK: - Configure Refresh control on pull
-    
-    func configureRefreshControl () {
-        itemsCollectionView.refreshControl = UIRefreshControl()
-        itemsCollectionView.refreshControl?.tintColor = #colorLiteral(red: 0.4039215686, green: 0.6078431373, blue: 0.6078431373, alpha: 1)
-        itemsCollectionView.refreshControl?.addTarget(self, action: #selector(getItems(isRefresh:)), for: .valueChanged)
-    }
-    
-    //MARK: - Get items and images
-    
-    @objc func getItems(isRefresh: Bool = true) {
-        
-        if downloadManager.isNetworkAvailable {
-            errorView.isHidden = true
-            
-            if isRefresh {
-                items = []
-                itemImages = []
-            }
-            
-            downloadManager.fetchItems { [weak self] (items, error) in
-                guard let self = self else { return }
-                
-                if error == nil {
-                    self.items = items
-                    
-                    DispatchQueue.main.async {
-                        self.itemsCollectionView.refreshControl?.endRefreshing()
-                        self.itemsCollectionView.reloadData()
-                    }
-                    
-                    for n in 0..<self.items.count {
-                        if let imageUrl = items[n].mainImage {
-                            
-                            let image = ItemImage(name: items[n].title, url: imageUrl)
-                            self.itemImages.append(image)
-                            self.getItemImage(at: n)
-                            
-                        }
-                    }
-                } else {
-                    print(error!.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.itemsCollectionView.refreshControl?.endRefreshing()
-                    }
-                }
-            }
-        } else {
-            self.itemsCollectionView.refreshControl?.endRefreshing()
-        }
-    }
-    
-    func getItemImage(at index: Int, section: Int = 0) {
-        let imageObject = itemImages[index]
-        
-        switch imageObject.state {
-        case .failed, .new:
-            itemImages[index].state = .pending
-            
-            downloadManager.fetchImage(named: imageObject.url) { (image, error) in
-                if error == nil {
-                    self.itemImages[index].image = image
-                    self.itemImages[index].state = .downloaded
-                } else if let errorImage = UIImage(named: ItemConstants.defaultImage) {
-                    self.itemImages[index].image = errorImage
-                    self.itemImages[index].state = .failed
-                }
-                
-                DispatchQueue.main.async {
-                    let indexPath = IndexPath(item: index, section: section)
-                    self.itemsCollectionView.reloadItems(at: [indexPath])
-                }
-            }
-        default:
-            break
-        }
-    }
-    
     //MARK: - Utilities
-    
     func noInternetAlert() {
         let alert = UIAlertController(title: "Oops!", message: "No internet connection. :(", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
 }
 
-//MARK: - Collection view delegate and data source methods
+//MARK: - ItemsViewModel delegate methods
+extension ItemListViewController: ItemsViewModelDelegate {
+    func itemsFetchDidCompleteWithResult() {
+        DispatchQueue.main.async {
+//            self.itemsCollectionView.refreshControl?.endRefreshing()
+            self.itemsCollectionView.reloadData()
+        }
+        
+        for index in 0..<self.itemsViewModel.numberOfItems() {
+            if let imageUrl = itemsViewModel.item(at: index).mainImage {
+                
+                let imageObject = ItemImage(name: itemsViewModel.item(at: index).title, url: imageUrl)
+                self.itemsViewModel.addItemImageObject(imageObject)
+                self.itemsViewModel.getItemImage(at: index)
+            }
+        }
+    }
+    
+    func itemsFetchDidCompleteWithError() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            if self.itemsViewModel.numberOfItems() > 0 {
+                self.noInternetAlert()
+            } else {
+                self.errorView.isHidden = false
+                self.itemsCollectionView.isHidden = true
+            }
+        }
+    }
+    
+    func didFinishFetchingImage(at index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        self.itemsCollectionView.reloadItems(at: [indexPath])
+    }
+}
 
-extension ItemListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDataSourcePrefetching {
+//MARK: - Collection view delegate methods
+extension ItemListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedItem = itemsViewModel.item(at: indexPath.item)
+        selectedImage = itemsViewModel.itemImage(at: indexPath.item).image
+        
+        performSegue(withIdentifier: ViewConstants.segueIdentifier, sender: self)
+    }
+}
+
+//MARK: - Collection view data source methods
+extension ItemListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+        return itemsViewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sellItem", for: indexPath) as! SellItemCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemConstants.itemCellIdentifier,
+                                                      for: indexPath) as! SellItemCell
         
-        if !items.isEmpty {
-            let shopItem = items[indexPath.item]
-            cell.itemPrice.text = "\(shopItem.price) ლ"
+        if itemsViewModel.numberOfItems() != 0 {
+            let shopItem = itemsViewModel.item(at: indexPath.item)
+            cell.itemPrice.text = "\(shopItem.price) \(ItemConstants.shortCurrencyText)"
             cell.itemSize.text = shopItem.availableSizes.first
+            cell.itemName.text = shopItem.title
             
+            let imageObject = itemsViewModel.itemImage(at: indexPath.item)
             
-            let imageObject = itemImages[indexPath.item]
-            
-            if imageObject.state == .new || imageObject.state == .failed {
-                getItemImage(at: indexPath.item)
-            } else {
-                cell.itemImage.image = imageObject.image
+            switch imageObject.state {
+            case .downloaded:
+                DispatchQueue.main.async {
+                    cell.itemImage.setImageAnimated(with: imageObject.image!)
+                }
+            case .failed, .new:
+                itemsViewModel.getItemImage(at: indexPath.item)
+            default:
+                break
             }
         }
         
         return cell
     }
     
+}
+
+//MARK: - Collection view data source prefetching methods
+extension ItemListViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
-        if !items.isEmpty {
+        if itemsViewModel.numberOfItems() != 0 {
             for indexPath in indexPaths {
-                let imageObject = itemImages[indexPath.item]
+                let imageObject = itemsViewModel.itemImage(at: indexPath.item)
                 
                 if imageObject.state == .new || imageObject.state == .failed {
-                    getItemImage(at: indexPath.item)
+                    itemsViewModel.getItemImage(at: indexPath.item)
                 }
             }
         }
     }
+}
+
+//MARK: - Collection view delegate flow layout methods
+extension ItemListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let d: CGFloat = 20
         let heightToWidthRatio = 1.5
         let width = (itemsCollectionView.frame.width - d) / 2
@@ -181,12 +162,17 @@ extension ItemListViewController: UICollectionViewDelegate, UICollectionViewData
         
         return CGSize(width: width, height: height)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        selectedItem = items[indexPath.item]
-        selectedImage = itemImages[indexPath.item].image
-        
-        performSegue(withIdentifier: "itemDetails", sender: self)
+}
+
+//MARK: - Image view extension for animation
+extension UIImageView {
+    func setImageAnimated(with image: UIImage) {
+        UIView.transition(with: self,
+                          duration: 0.4,
+                          options: [.curveEaseInOut, .transitionCrossDissolve],
+                          animations: {
+                            self.image = image
+                        },
+                          completion: nil)
     }
 }

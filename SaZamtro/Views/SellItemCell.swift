@@ -13,6 +13,7 @@ class SellItemCell: UICollectionViewCell {
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var itemSize: UILabel!
+    @IBOutlet weak var itemName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

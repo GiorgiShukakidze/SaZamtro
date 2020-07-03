@@ -21,6 +21,7 @@
 		CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */; };
 		CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905224A37B8000D13919 /* DownloadManager.swift */; };
 		CB79905524A3C57B00D13919 /* ItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905424A3C57B00D13919 /* ItemImage.swift */; };
+		CB7BE0D324AA63B100A72F88 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */; };
 		CBB931D2249A1AA10041EAFB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB931D1249A1AA10041EAFB /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		CB79905224A37B8000D13919 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		CB79905424A3C57B00D13919 /* ItemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemImage.swift; sourceTree = "<group>"; };
+		CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
 		CBB931D1249A1AA10041EAFB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 				CB09A626248F9E0700D0B91D /* Item.swift */,
 				CB01A5C82498B9EE00AC747F /* User.swift */,
 				CB79905424A3C57B00D13919 /* ItemImage.swift */,
+				CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */,
 				CB79905224A37B8000D13919 /* DownloadManager.swift */,
 			);
 			path = Model;
@@ -266,6 +269,7 @@
 				CB33D2C6247ACB7800B44888 /* ItemListViewController.swift in Sources */,
 				CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */,
 				CB79905524A3C57B00D13919 /* ItemImage.swift in Sources */,
+				CB7BE0D324AA63B100A72F88 /* ItemsViewModel.swift in Sources */,
 				CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */,
 				CB09A627248F9E0700D0B91D /* Item.swift in Sources */,
 				CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */,

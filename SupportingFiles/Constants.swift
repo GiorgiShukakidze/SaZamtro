@@ -19,5 +19,12 @@ struct ItemConstants {
     static let defaultImage = "notFound"
     static let brandText = "ბრენდი"
     static let priceText = "ფასი"
-    static let currencyText = "ლ"
+    static let sizeText = "ზომა"
+    static let shortCurrencyText = "ლ"
+    static let longCurrencyText = "ლარი"
+    static let itemCellIdentifier = "sellItem"
+}
+
+struct ViewConstants {
+    static let segueIdentifier = "itemDetails"
 }
