@@ -19,8 +19,8 @@ class DownloadManager {
     private let db = Firestore.firestore()
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue(label: "com.gshukakidze.SaZamtro.Monitor")
-    private lazy var query = db.collection(FBase.itemsCollection)
     private lazy var networkAvailable = true
+    private var lastDocument: QueryDocumentSnapshot?
     
     
     func isNetworkAvailable() -> Bool {
@@ -28,15 +28,24 @@ class DownloadManager {
     }
     
     func fetchItems(completion: @escaping ([Item], Error?) -> ()) {
-
         var items = [Item]()
+        let query: Query
+        
+        if let lastDocument = lastDocument {
+            query = db.collection(FBase.itemsCollection)
+                .limit(to: FBase.limit)
+                .start(afterDocument: lastDocument)
+        } else {
+            query = db.collection(FBase.itemsCollection)
+                .limit(to: FBase.limit)
+        }
         
         query.getDocuments { (querySnapshot, error) in
             if error == nil, let docs = querySnapshot?.documents {
                 
-                //                if let lastDoc = docs.last {
-                //                    self.lastDocument = lastDoc
-                //                }
+                if let lastDoc = docs.last {
+                    self.lastDocument = lastDoc
+                }
                 
                 for doc in docs {
                     let result = Result {
@@ -45,7 +54,8 @@ class DownloadManager {
                     
                     switch result {
                     case .success(let item):
-                        if let item = item {
+                        if var item = item {
+                            item.id = UUID()
                             items.append(item)
                         } else {
                             print("Document does not exist")
@@ -64,7 +74,6 @@ class DownloadManager {
     }
     
     func fetchImage(named imageName: String, completion: @escaping (UIImage?, Error?) -> ()) {
-        
         let pathRef = Storage.storage().reference(forURL: FBase.imageUrl(named: imageName))
         pathRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
             

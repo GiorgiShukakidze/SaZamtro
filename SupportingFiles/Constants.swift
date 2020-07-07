@@ -13,6 +13,7 @@ struct FBase {
     static func imageUrl(named imageName: String) -> String {
         return "gs://sazamtro-98455.appspot.com/images/\(imageName).jpg"
     }
+    static let limit = 8
 }
 
 struct ItemConstants {

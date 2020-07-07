@@ -17,15 +17,17 @@ class ItemListViewController: UIViewController {
     //MARK: - IB Outlets
     @IBOutlet private weak var itemsCollectionView: UICollectionView!
     @IBOutlet private weak var errorView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBAction private func retryTapped(_ sender: UIButton) {
+        self.activityIndicator.stopAnimating()
         errorView.isHidden = true
         itemsViewModel.getItems()
     }
     
     override func viewDidLoad() {
+        activityIndicator.startAnimating()
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
-        itemsCollectionView.prefetchDataSource = self
         itemsViewModel.delegate = self
         
         errorView.isHidden = true
@@ -55,24 +57,25 @@ class ItemListViewController: UIViewController {
 extension ItemListViewController: ItemsViewModelDelegate {
     func itemsFetchDidCompleteWithResult() {
         DispatchQueue.main.async {
-//            self.itemsCollectionView.refreshControl?.endRefreshing()
+            self.activityIndicator.stopAnimating()
             self.itemsCollectionView.reloadData()
         }
         
-        for index in 0..<self.itemsViewModel.numberOfItems() {
-            if let imageUrl = itemsViewModel.item(at: index).mainImage {
-                
-                let imageObject = ItemImage(name: itemsViewModel.item(at: index).title, url: imageUrl)
-                self.itemsViewModel.addItemImageObject(imageObject)
-                self.itemsViewModel.getItemImage(at: index)
-            }
-        }
+//        for index in 0..<self.itemsViewModel.numberOfItems() {
+//            if let imageUrl = itemsViewModel.item(at: index).mainImage {
+//                
+//                let imageObject = ItemImage(name: itemsViewModel.item(at: index).title, url: imageUrl)
+//                self.itemsViewModel.addItemImageObject(imageObject)
+//                self.itemsViewModel.getItemImage(at: index)
+//            }
+//        }
     }
     
     func itemsFetchDidCompleteWithError() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            
+            self.activityIndicator.stopAnimating()
+
             if self.itemsViewModel.numberOfItems() > 0 {
                 self.noInternetAlert()
             } else {
@@ -99,7 +102,10 @@ extension ItemListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//  TO DO
+        //  TO DO
+        if itemsViewModel.numberOfItems() - 1 == indexPath.item {
+            itemsViewModel.getItems(currentItem: itemsViewModel.item(at: indexPath.item))
+        }
     }
 }
 
@@ -138,21 +144,6 @@ extension ItemListViewController: UICollectionViewDataSource {
     }
 }
 
-//MARK: - Collection view data source prefetching methods
-extension ItemListViewController: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        if itemsViewModel.numberOfItems() != 0 {
-            for indexPath in indexPaths {
-                let imageObject = itemsViewModel.itemImage(at: indexPath.item)
-                
-                if imageObject.state == .new || imageObject.state == .failed {
-                    itemsViewModel.getItemImage(at: indexPath.item)
-                }
-            }
-        }
-    }
-}
-
 //MARK: - Collection view delegate flow layout methods
 extension ItemListViewController: UICollectionViewDelegateFlowLayout {
     
@@ -174,7 +165,7 @@ extension UIImageView {
                           options: [.curveEaseInOut, .transitionCrossDissolve],
                           animations: {
                             self.image = image
-                        },
+        },
                           completion: nil)
     }
 }

@@ -16,8 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UTm-Y1-cTl">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                                <color key="color" red="0.4039215686" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="A8y-EB-DeZ">
-                                <rect key="frame" x="16" y="88" width="382" height="774"/>
+                                <rect key="frame" x="16" y="147" width="382" height="699"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="zcF-0m-F40">
                                     <size key="itemSize" width="72" height="72"/>
@@ -125,19 +129,19 @@
                                 </cells>
                             </collectionView>
                             <view opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAt-sX-6tb" userLabel="Error View">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="147" width="414" height="715"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qee-ZZ-Uoe">
-                                        <rect key="frame" x="20" y="335" width="374" height="104"/>
+                                        <rect key="frame" x="20" y="330" width="374" height="55.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oops! No internet connection :(" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvi-Cy-lDS">
-                                                <rect key="frame" x="55" y="0.0" width="264.5" height="82"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                                <nil key="textColor"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvi-Cy-lDS">
+                                                <rect key="frame" x="39" y="0.0" width="296" height="33.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <color key="textColor" red="0.60592025520000004" green="0.11053956299999999" blue="0.1215394065" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLF-vb-wxC" userLabel="Retry">
-                                                <rect key="frame" x="154" y="82" width="66" height="22"/>
+                                                <rect key="frame" x="154" y="33.5" width="66" height="22"/>
                                                 <color key="tintColor" red="0.4039215686" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title=" Retry" image="arrow.clockwise" catalog="system">
                                                     <color key="titleColor" red="0.4039215686" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -160,11 +164,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.93333333330000001" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="UTm-Y1-cTl" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="BG4-uY-FdJ"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="ETq-AM-f44"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" constant="-16" id="FXV-RD-soN"/>
                             <constraint firstItem="PAt-sX-6tb" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="HTg-sF-byH"/>
-                            <constraint firstItem="A8y-EB-DeZ" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="KjQ-Fn-wQR"/>
+                            <constraint firstItem="A8y-EB-DeZ" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" constant="-16" id="KjQ-Fn-wQR"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="16" id="MMr-0z-Byz"/>
+                            <constraint firstItem="UTm-Y1-cTl" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="XM6-Bn-mFB"/>
                             <constraint firstItem="PAt-sX-6tb" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="hH7-jy-afF"/>
                             <constraint firstItem="PAt-sX-6tb" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="odU-8l-QyM"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="PAt-sX-6tb" secondAttribute="trailing" id="rD8-Bw-VsE"/>
@@ -184,6 +190,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="UTm-Y1-cTl" id="1xS-Mj-4Mw"/>
                         <outlet property="errorView" destination="PAt-sX-6tb" id="Op8-6v-43p"/>
                         <outlet property="itemsCollectionView" destination="A8y-EB-DeZ" id="vI6-l4-o07"/>
                         <segue destination="7SM-iW-viR" kind="show" identifier="itemDetails" id="ePy-PL-eaY"/>
@@ -350,7 +357,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Uui-hz-j1H" userLabel="Home" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="zCm-Hk-uSj">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="103"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.99215686270000003" green="0.93333333330000001" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -19,8 +19,8 @@ class ItemsViewModel {
     private lazy var downloadManager = DownloadManager.shared
     private var itemImages = [ItemImage]()
     var delegate: ItemsViewModelDelegate?
-    var downloadInProgress = false
-    var moreItemsExist = true
+    lazy var downloadInProgress = false
+    lazy var moreItemsAvailable = true
 
     func item(at index: Int) -> Item {
         return items[index]
@@ -40,8 +40,12 @@ class ItemsViewModel {
     
     //MARK: - Get items
     
-    func getItems() {
+    func getItems(currentItem: Item? = nil) {
         if downloadManager.isNetworkAvailable() {
+            
+            if !shouldLoadMore(currentItem: currentItem) {
+                return
+            }
             
             downloadInProgress = true
             
@@ -49,10 +53,20 @@ class ItemsViewModel {
                 guard let self = self else { return }
                 
                 if error == nil {
-                    self.items = items
-                    if items.count == 0 { self.moreItemsExist = false }
+                    if items.count == 0 {
+                        self.moreItemsAvailable = false
+                    }
+                    self.items.append(contentsOf: items)
                     
                     self.delegate?.itemsFetchDidCompleteWithResult()
+                    
+                    for item in items {
+                        if let index = self.items.firstIndex(of: item), let imageUrl = item.mainImage {
+                            let imageObject = ItemImage(name: item.title, url: imageUrl)
+                            self.addItemImageObject(imageObject)
+                            self.getItemImage(at: index)
+                        }
+                    }
                 } else {
                     print(error!.localizedDescription)
                     self.delegate?.itemsFetchDidCompleteWithError()
@@ -90,5 +104,22 @@ class ItemsViewModel {
         default:
             break
         }
+    }
+    
+    //MARK: - Utilities
+    
+    private func shouldLoadMore(currentItem: Item? = nil) -> Bool {
+        if downloadInProgress || !moreItemsAvailable {
+            return false
+        }
+        
+        guard let currentItem = currentItem else {
+            return true
+        }
+        
+        guard let lastItem = items.last else {
+            return true
+        }
+        return currentItem.id == lastItem.id
     }
 }

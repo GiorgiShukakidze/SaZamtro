@@ -8,6 +8,8 @@
 
 import Foundation
 
+//TO DO
+/*
 struct User {
     let firstName: String
     let lastName: String
@@ -15,3 +17,4 @@ struct User {
     let address: String
     let phoneNumber: String
 }
+*/
