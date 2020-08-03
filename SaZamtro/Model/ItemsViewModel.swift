@@ -53,11 +53,7 @@ class ItemsViewModel {
                 guard let self = self else { return }
                 
                 if error == nil {
-                    if items.count == 0 {
-                        self.moreItemsAvailable = false
-                        self.delegate?.itemsFetchDidCompleteWithResult()
-                        return
-                    }
+                    if items.count < FBase.limit { self.moreItemsAvailable = false }
                     
                     self.items.append(contentsOf: items)
                     
