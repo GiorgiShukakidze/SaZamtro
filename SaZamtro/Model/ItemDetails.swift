@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ItemDetails: Codable, Equatable {
+struct Item: Codable, Equatable {
     var id: UUID?
     var images: [String]
     let description: String

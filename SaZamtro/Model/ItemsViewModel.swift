@@ -55,10 +55,11 @@ class ItemsViewModel {
                 if error == nil {
                     if items.count == 0 {
                         self.moreItemsAvailable = false
+                        self.delegate?.itemsFetchDidCompleteWithResult()
+                        return
                     }
-                    self.items.append(contentsOf: items)
                     
-                    self.delegate?.itemsFetchDidCompleteWithResult()
+                    self.items.append(contentsOf: items)
                     
                     for item in items {
                         if let index = self.items.firstIndex(of: item), let imageUrl = item.mainImage {
@@ -67,6 +68,9 @@ class ItemsViewModel {
                             self.getItemImage(at: index)
                         }
                     }
+                    
+                    self.delegate?.itemsFetchDidCompleteWithResult()
+                    
                 } else {
                     print(error!.localizedDescription)
                     self.delegate?.itemsFetchDidCompleteWithError()

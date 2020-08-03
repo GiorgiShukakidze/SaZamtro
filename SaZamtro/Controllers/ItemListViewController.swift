@@ -55,20 +55,12 @@ class ItemListViewController: UIViewController {
 
 //MARK: - ItemsViewModel delegate methods
 extension ItemListViewController: ItemsViewModelDelegate {
+    
     func itemsFetchDidCompleteWithResult() {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.itemsCollectionView.reloadData()
         }
-        
-//        for index in 0..<self.itemsViewModel.numberOfItems() {
-//            if let imageUrl = itemsViewModel.item(at: index).mainImage {
-//                
-//                let imageObject = ItemImage(name: itemsViewModel.item(at: index).title, url: imageUrl)
-//                self.itemsViewModel.addItemImageObject(imageObject)
-//                self.itemsViewModel.getItemImage(at: index)
-//            }
-//        }
     }
     
     func itemsFetchDidCompleteWithError() {
@@ -132,6 +124,7 @@ extension ItemListViewController: UICollectionViewDataSource {
             case .downloaded:
                 DispatchQueue.main.async {
                     cell.itemImage.setImageAnimated(with: imageObject.image!)
+//                    cell.itemImage.image = imageObject.image
                 }
             case .failed, .new:
                 itemsViewModel.getItemImage(at: indexPath.item)
