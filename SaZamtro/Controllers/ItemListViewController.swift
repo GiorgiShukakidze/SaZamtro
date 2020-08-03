@@ -11,7 +11,6 @@ import UIKit
 class ItemListViewController: UIViewController {
     
     private var selectedItem: Item?
-    private var selectedImage: UIImage?
     private lazy var itemsViewModel = ItemsViewModel()
     
     //MARK: - IB Outlets
@@ -36,12 +35,10 @@ class ItemListViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let shopItem = selectedItem,
-            let itemImage = selectedImage,
             segue.identifier == ViewConstants.segueIdentifier {
             
             let destinationVC = segue.destination as! ItemDetailsViewController
             destinationVC.shopItem = shopItem
-            destinationVC.shopItemImage = itemImage
         }
     }
     
@@ -79,7 +76,9 @@ extension ItemListViewController: ItemsViewModelDelegate {
     
     func didFinishFetchingImage(at index: Int) {
         let indexPath = IndexPath(item: index, section: 0)
-        self.itemsCollectionView.reloadItems(at: [indexPath])
+        if let cell = itemsCollectionView.cellForItem(at: indexPath) as? SellItemCell {
+            cell.itemImage.setImageAnimated(with: itemsViewModel.item(at: index).itemImage.image!)
+        }
     }
 }
 
@@ -88,7 +87,6 @@ extension ItemListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedItem = itemsViewModel.item(at: indexPath.item)
-        selectedImage = itemsViewModel.itemImage(at: indexPath.item).image
         
         performSegue(withIdentifier: ViewConstants.segueIdentifier, sender: self)
     }
@@ -114,17 +112,14 @@ extension ItemListViewController: UICollectionViewDataSource {
         
         if itemsViewModel.numberOfItems() != 0 {
             let shopItem = itemsViewModel.item(at: indexPath.item)
-            cell.itemPrice.text = "\(shopItem.price) \(ItemConstants.shortCurrencyText)"
-            cell.itemSize.text = shopItem.availableSizes.first
-            cell.itemName.text = shopItem.title
-            
-            let imageObject = itemsViewModel.itemImage(at: indexPath.item)
-            
-            switch imageObject.state {
+            cell.itemPrice.text = "\(shopItem.itemDetails.price) \(ItemConstants.shortCurrencyText)"
+            cell.itemSize.text = shopItem.itemDetails.availableSizes.first!
+            cell.itemName.text = shopItem.itemDetails.title
+                    
+            switch shopItem.itemImage.state {
             case .downloaded:
                 DispatchQueue.main.async {
-                    cell.itemImage.setImageAnimated(with: imageObject.image!)
-//                    cell.itemImage.image = imageObject.image
+                    cell.itemImage.image = shopItem.itemImage.image
                 }
             case .failed, .new:
                 itemsViewModel.getItemImage(at: indexPath.item)

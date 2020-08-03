@@ -27,8 +27,8 @@ class DownloadManager {
         return networkAvailable
     }
     
-    func fetchItems(completion: @escaping ([Item], Error?) -> ()) {
-        var items = [Item]()
+    func fetchItemDetails(completion: @escaping ([ItemDetails], Error?) -> ()) {
+        var items = [ItemDetails]()
         let query: Query
         
         if let lastDocument = lastDocument {
@@ -49,7 +49,7 @@ class DownloadManager {
                 
                 for doc in docs {
                     let result = Result {
-                        try doc.data(as: Item.self)
+                        try doc.data(as: ItemDetails.self)
                     }
                     
                     switch result {

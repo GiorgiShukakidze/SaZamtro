@@ -11,7 +11,6 @@ import UIKit
 class ItemDetailsViewController: UIViewController {
     
     var shopItem: Item?
-    var shopItemImage: UIImage?
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var itemImage: UIImageView! {
@@ -37,14 +36,14 @@ class ItemDetailsViewController: UIViewController {
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height/2
         if let item = shopItem {
-            if let mainImage = shopItemImage {
+            if let mainImage = item.itemImage.image {
                 itemImage.image = mainImage
             }
-            title = item.title
-            itemBrand.text = "\(ItemConstants.brandText): \(item.brand)"
-            itemPrice.text = "\(ItemConstants.priceText): \(item.price) \(ItemConstants.longCurrencyText)"
-            itemSize.text = "\(ItemConstants.sizeText): \(item.availableSizes.first!)"
-            itemDescription.text = item.description
+            title = item.itemDetails.title
+            itemBrand.text = "\(ItemConstants.brandText): \(item.itemDetails.brand)"
+            itemPrice.text = "\(ItemConstants.priceText): \(item.itemDetails.price) \(ItemConstants.longCurrencyText)"
+            itemSize.text = "\(ItemConstants.sizeText): \(item.itemDetails.availableSizes.first!)"
+            itemDescription.text = item.itemDetails.description
         } else {
             nothingToShow.isHidden = false
         }

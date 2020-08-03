@@ -20,6 +20,7 @@
 		CB33D2DF247AE6CC00B44888 /* SellItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */; };
 		CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */; };
 		CB5C870B24D8419A00838172 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5C870A24D8419A00838172 /* WelcomeViewController.swift */; };
+		CB5C870D24D8659B00838172 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5C870C24D8659B00838172 /* Item.swift */; };
 		CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905224A37B8000D13919 /* DownloadManager.swift */; };
 		CB79905524A3C57B00D13919 /* ItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB79905424A3C57B00D13919 /* ItemImage.swift */; };
 		CB7BE0D324AA63B100A72F88 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */; };
@@ -44,6 +45,7 @@
 		CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellItemCell.swift; sourceTree = "<group>"; };
 		CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsViewController.swift; sourceTree = "<group>"; };
 		CB5C870A24D8419A00838172 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		CB5C870C24D8659B00838172 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		CB79905224A37B8000D13919 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		CB79905424A3C57B00D13919 /* ItemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemImage.swift; sourceTree = "<group>"; };
 		CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				CB09A626248F9E0700D0B91D /* ItemDetails.swift */,
 				CB01A5C82498B9EE00AC747F /* User.swift */,
 				CB79905424A3C57B00D13919 /* ItemImage.swift */,
+				CB5C870C24D8659B00838172 /* Item.swift */,
 				CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */,
 				CB79905224A37B8000D13919 /* DownloadManager.swift */,
 			);
@@ -276,6 +279,7 @@
 				CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */,
 				CB09A627248F9E0700D0B91D /* ItemDetails.swift in Sources */,
 				CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */,
+				CB5C870D24D8659B00838172 /* Item.swift in Sources */,
 				CB52CC15247B166300B4C32C /* ItemDetailsViewController.swift in Sources */,
 				CB33D2C4247ACB7800B44888 /* SceneDelegate.swift in Sources */,
 				CB5C870B24D8419A00838172 /* WelcomeViewController.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 enum ImageRecordState {
-    case new, pending, downloaded, failed
+    case new, pending, downloaded, failed, noImage
 }
 
 struct ItemImage {
