@@ -109,8 +109,9 @@ extension ItemListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemConstants.itemCellIdentifier,
                                                       for: indexPath) as! SellItemCell
-        
+                
         if itemsViewModel.numberOfItems() != 0 {
+            cell.itemImage.image = nil
             let shopItem = itemsViewModel.item(at: indexPath.item)
             cell.itemPrice.text = "\(shopItem.itemDetails.price) \(ItemConstants.shortCurrencyText)"
             cell.itemSize.text = shopItem.itemDetails.availableSizes.first!
