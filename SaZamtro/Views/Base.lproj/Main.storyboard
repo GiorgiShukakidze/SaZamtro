@@ -129,52 +129,15 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PAt-sX-6tb" userLabel="Error View">
-                                <rect key="frame" x="0.0" y="147" width="414" height="715"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qee-ZZ-Uoe">
-                                        <rect key="frame" x="20" y="330" width="374" height="55.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can not connect" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvi-Cy-lDS">
-                                                <rect key="frame" x="88" y="0.0" width="198.5" height="33.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                <color key="textColor" red="0.60592025520000004" green="0.11053956299999999" blue="0.1215394065" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLF-vb-wxC" userLabel="Retry">
-                                                <rect key="frame" x="154" y="33.5" width="66" height="22"/>
-                                                <color key="tintColor" red="0.4039215686" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title=" Retry" image="arrow.clockwise" catalog="system">
-                                                    <color key="titleColor" red="0.4039215686" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="retryTapped:" destination="9pv-A4-QxB" eventType="touchUpInside" id="FGm-b1-RxP"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Qee-ZZ-Uoe" secondAttribute="trailing" constant="20" id="Cyr-39-g4h"/>
-                                    <constraint firstItem="Qee-ZZ-Uoe" firstAttribute="leading" secondItem="PAt-sX-6tb" secondAttribute="leading" constant="20" id="LKN-38-WE3"/>
-                                    <constraint firstItem="Qee-ZZ-Uoe" firstAttribute="centerY" secondItem="PAt-sX-6tb" secondAttribute="centerY" id="coQ-ke-U9v"/>
-                                    <constraint firstItem="Qee-ZZ-Uoe" firstAttribute="centerX" secondItem="PAt-sX-6tb" secondAttribute="centerX" id="mCl-du-3xd"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.93333333330000001" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UTm-Y1-cTl" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="BG4-uY-FdJ"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="ETq-AM-f44"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" constant="-16" id="FXV-RD-soN"/>
-                            <constraint firstItem="PAt-sX-6tb" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="HTg-sF-byH"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" constant="-16" id="KjQ-Fn-wQR"/>
                             <constraint firstItem="A8y-EB-DeZ" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="16" id="MMr-0z-Byz"/>
                             <constraint firstItem="UTm-Y1-cTl" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="XM6-Bn-mFB"/>
-                            <constraint firstItem="PAt-sX-6tb" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="hH7-jy-afF"/>
-                            <constraint firstItem="PAt-sX-6tb" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="odU-8l-QyM"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="PAt-sX-6tb" secondAttribute="trailing" id="rD8-Bw-VsE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
@@ -192,7 +155,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="UTm-Y1-cTl" id="1xS-Mj-4Mw"/>
-                        <outlet property="errorView" destination="PAt-sX-6tb" id="Op8-6v-43p"/>
                         <outlet property="itemsCollectionView" destination="A8y-EB-DeZ" id="vI6-l4-o07"/>
                         <segue destination="7SM-iW-viR" kind="show" identifier="itemDetails" id="ePy-PL-eaY"/>
                     </connections>
@@ -217,6 +179,7 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rgo-hQ-wg6">
                                                 <rect key="frame" x="20" y="20" width="374" height="475"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="rgo-hQ-wg6" secondAttribute="height" multiplier="374:475" id="xvB-7W-dnB"/>
                                                 </constraints>
@@ -296,33 +259,13 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="rpe-Dq-ep9"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="xFL-sN-nDI"/>
                             </scrollView>
-                            <view opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eh-Ll-CBg" userLabel="Nothing to show">
-                                <rect key="frame" x="0.0" y="147" width="414" height="715"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing to show :(" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbb-nn-V5R" userLabel="Nothing to show">
-                                        <rect key="frame" x="74" y="337" width="266" height="41"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="qbb-nn-V5R" firstAttribute="centerY" secondItem="3eh-Ll-CBg" secondAttribute="centerY" id="CjT-jG-sk6"/>
-                                    <constraint firstItem="qbb-nn-V5R" firstAttribute="centerX" secondItem="3eh-Ll-CBg" secondAttribute="centerX" id="WO5-8W-S3R"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.93333333330000001" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="3eh-Ll-CBg" firstAttribute="leading" secondItem="0rM-Ps-c4l" secondAttribute="leading" id="2Ul-jA-rG9"/>
                             <constraint firstItem="YdG-fy-NGh" firstAttribute="trailing" secondItem="0rM-Ps-c4l" secondAttribute="trailing" id="5tb-iz-Cob"/>
                             <constraint firstItem="YdG-fy-NGh" firstAttribute="bottom" secondItem="0rM-Ps-c4l" secondAttribute="bottom" id="GZV-Op-Kxe"/>
                             <constraint firstItem="YdG-fy-NGh" firstAttribute="leading" secondItem="0rM-Ps-c4l" secondAttribute="leading" id="ObQ-7v-ijk"/>
                             <constraint firstItem="YdG-fy-NGh" firstAttribute="top" secondItem="0rM-Ps-c4l" secondAttribute="top" id="el5-Nx-xug"/>
-                            <constraint firstItem="0rM-Ps-c4l" firstAttribute="bottom" secondItem="3eh-Ll-CBg" secondAttribute="bottom" id="t8L-94-KC5"/>
-                            <constraint firstItem="0rM-Ps-c4l" firstAttribute="trailing" secondItem="3eh-Ll-CBg" secondAttribute="trailing" id="xuF-xw-UiM"/>
-                            <constraint firstItem="3eh-Ll-CBg" firstAttribute="top" secondItem="0rM-Ps-c4l" secondAttribute="top" id="zZB-y7-XC1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0rM-Ps-c4l"/>
                     </view>
@@ -344,8 +287,7 @@
                         <outlet property="itemImage" destination="rgo-hQ-wg6" id="VwP-bd-AHr"/>
                         <outlet property="itemPrice" destination="ozx-TV-N0o" id="8iF-bW-5zo"/>
                         <outlet property="itemSize" destination="Kk1-dh-EWe" id="8fc-hy-6wf"/>
-                        <outlet property="nothingToShow" destination="3eh-Ll-CBg" id="pEy-rQ-Ggl"/>
-                        <outlet property="scrollView" destination="YdG-fy-NGh" id="4PW-rt-FVd"/>
+                        <outlet property="scrollView" destination="YdG-fy-NGh" id="a8U-O7-Xf5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tis-9N-V5m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -420,7 +362,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.clockwise" catalog="system" width="115" height="128"/>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="cart.badge.plus" catalog="system" width="128" height="98"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>

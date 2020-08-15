@@ -12,24 +12,18 @@ class ItemListViewController: UIViewController {
     
     private var selectedItem: Item?
     private lazy var itemsViewModel = ItemsViewModel()
+    let cart = Cart()
     
     //MARK: - IB Outlets
     @IBOutlet private weak var itemsCollectionView: UICollectionView!
-    @IBOutlet private weak var errorView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBAction private func retryTapped(_ sender: UIButton) {
-        self.activityIndicator.stopAnimating()
-        errorView.isHidden = true
-        itemsViewModel.getItems()
-    }
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {        
         activityIndicator.startAnimating()
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsViewModel.delegate = self
         
-        errorView.isHidden = true
         itemsViewModel.getItems()
     }
     
@@ -48,14 +42,34 @@ class ItemListViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
+    
+    private func displayErrorView() {
+        let stack = ConnectionErrorView(frame: CGRect.zero)
+        view.addSubview(stack)
+        stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        stack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        stack.button.addTarget(self, action: #selector(retry), for: .touchUpInside)
+    }
+    
+    @objc func retry(_ sender: Any?) {
+        self.activityIndicator.startAnimating()
+        if let button = sender as? UIButton, let stack = button.superview as? UIStackView {
+            stack.isHidden = true
+            itemsViewModel.getItems()
+        }
+    }
 }
 
 //MARK: - ItemsViewModel delegate methods
 extension ItemListViewController: ItemsViewModelDelegate {
     
     func itemsFetchDidCompleteWithResult() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+        
             self.activityIndicator.stopAnimating()
+            self.itemsCollectionView.isHidden = false
             self.itemsCollectionView.reloadData()
         }
     }
@@ -63,12 +77,13 @@ extension ItemListViewController: ItemsViewModelDelegate {
     func itemsFetchDidCompleteWithError() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            
             self.activityIndicator.stopAnimating()
 
             if self.itemsViewModel.numberOfItems() > 0 {
                 self.noInternetAlert()
             } else {
-                self.errorView.isHidden = false
+                self.displayErrorView()
                 self.itemsCollectionView.isHidden = true
             }
         }

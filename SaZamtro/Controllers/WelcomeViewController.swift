@@ -16,7 +16,11 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let titleText = "SaZamtro"
+        animateAppName(for: AppConstants.titleText)
+        navigateToMainPage(after: AppConstants.titleText)
+    }
+    
+    func animateAppName(for titleText: String) {
         var charCount = 0.0
         
         for letter in titleText {
@@ -25,7 +29,9 @@ class WelcomeViewController: UIViewController {
             }
         charCount += 1
         }
-        
+    }
+    
+    func navigateToMainPage(after titleText: String) {
         Timer.scheduledTimer(withTimeInterval: 0.15 * Double((titleText.count + 1)), repeats: false) { (timer) in
             Auth.auth().signInAnonymously { (result, error) in
                 if error != nil {
@@ -34,9 +40,10 @@ class WelcomeViewController: UIViewController {
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "MainViewController")
-
                 UIApplication.shared.windows.first?.rootViewController = vc
             }
         }
     }
+    
+    
 }

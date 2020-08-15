@@ -29,3 +29,7 @@ struct ItemConstants {
 struct ViewConstants {
     static let segueIdentifier = "itemDetails"
 }
+
+struct AppConstants {
+    static let titleText = "SaZamtro"
+}
