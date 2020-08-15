@@ -44,21 +44,25 @@ class ItemDetailsViewController: UIViewController {
 //MARK: - Utilities
     
     private func setupItemDetails(with item: Item) {
+        
         if let mainImage = item.itemImage.image {
             itemImage.image = mainImage
         } else if let imageUrl = item.itemDetails.mainImage {
-            DownloadManager.shared.fetchImage(named: imageUrl) { [weak self] (image, error) in
+            
+            DownloadManager.shared.fetchImage(named: imageUrl) { [weak self] result in
                 guard let self = self else { return }
                 
-                if error == nil {
+                switch result {
+                case .success(let image):
                     DispatchQueue.main.async {
-                        self.itemImage.image = image!
+                        self.itemImage.image = image
                     }
-                } else {
-                    print(error!.localizedDescription)
+                case .failure(let error):
+                    print(error.localizedDescription)
                 }
             }
         }
+        
         title = item.itemDetails.title
         itemBrand.text = "\(ItemConstants.brandText): \(item.itemDetails.brand)"
         itemPrice.text = "\(ItemConstants.priceText): \(item.itemDetails.price) \(ItemConstants.longCurrencyText)"

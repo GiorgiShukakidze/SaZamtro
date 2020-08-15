@@ -20,7 +20,7 @@ class ItemsViewModel {
     var delegate: ItemsViewModelDelegate?
     lazy var downloadInProgress = false
     lazy var moreItemsAvailable = true
-
+    
     func item(at index: Int) -> Item {
         return items[index]
     }
@@ -40,10 +40,11 @@ class ItemsViewModel {
             
             downloadInProgress = true
             
-            downloadManager.fetchItemDetails { [weak self] (itemsDetails, error) in
+            downloadManager.fetchItemDetails { [weak self] result in
                 guard let self = self else { return }
                 
-                if error == nil {
+                switch result {
+                case .success(let itemsDetails):
                     if itemsDetails.count < FBase.limit { self.moreItemsAvailable = false }
                     
                     for itemDetails in itemsDetails {
@@ -60,9 +61,8 @@ class ItemsViewModel {
                     }
                     
                     self.delegate?.itemsFetchDidCompleteWithResult()
-                    
-                } else {
-                    print(error!.localizedDescription)
+                case .failure(let error):
+                    print(error.localizedDescription)
                     self.delegate?.itemsFetchDidCompleteWithError()
                 }
                 
@@ -82,17 +82,18 @@ class ItemsViewModel {
         case .failed, .new:
             items[index].itemImage.state = .pending
             
-            downloadManager.fetchImage(named: itemImage.url) { [weak self] (image, error) in
+            downloadManager.fetchImage(named: itemImage.url) { [weak self] result in
                 guard let self = self else { return }
                 
-                if error == nil {
+                switch result {
+                case .success(let image):
                     self.items[index].itemImage.setImage(image)
                     self.items[index].itemImage.state = .downloaded
-                } else {
+                case .failure:
                     self.items[index].itemImage.setImage()
                     self.items[index].itemImage.state = .failed
                 }
-
+                
                 self.delegate?.didFinishFetchingImage(at: index)
             }
         default:

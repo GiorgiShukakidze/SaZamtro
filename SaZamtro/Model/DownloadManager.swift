@@ -27,7 +27,7 @@ class DownloadManager {
         return networkAvailable
     }
     
-    func fetchItemDetails(completion: @escaping ([ItemDetails], Error?) -> ()) {
+    func fetchItemDetails(completion: @escaping (Result<[ItemDetails], Error>) -> ()) {
         var items = [ItemDetails]()
         let query: Query
         
@@ -64,24 +64,24 @@ class DownloadManager {
                         print("Error decoding item: \(error.localizedDescription)")
                     }
                 }
-                completion(items, nil)
+                completion(.success(items))
                 
             } else {
-                completion(items, error)
+                completion(.failure(error!))
                 print("error: \(error?.localizedDescription ?? "Undefined error")")
             }
         }
     }
     
-    func fetchImage(named imageName: String, completion: @escaping (UIImage?, Error?) -> ()) {
+    func fetchImage(named imageName: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
         let pathRef = Storage.storage().reference(forURL: FBase.imageUrl(named: imageName))
         pathRef.getData(maxSize: 2 * 1024 * 1024) { (data, error) in
             
             if let fetchError = error {
-                completion(nil, error)
+                completion(.failure(fetchError))
                 print("Error fetching image: \(fetchError.localizedDescription)")
             } else if let image = UIImage(data: data!) {
-                completion(image, nil)
+                completion(.success(image))
             }
         }
     }
