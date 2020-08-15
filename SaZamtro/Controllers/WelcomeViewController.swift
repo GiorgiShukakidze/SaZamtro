@@ -17,27 +17,29 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         animateAppName(for: AppConstants.titleText)
-        navigateToMainPage(after: AppConstants.titleText)
     }
     
     func animateAppName(for titleText: String) {
-        var charCount = 0.0
         
-        for letter in titleText {
-            Timer.scheduledTimer(withTimeInterval: 0.15 * charCount, repeats: false) { (timer) in
-                self.titleLabel.text?.append(letter)
-            }
-        charCount += 1
+        titleLabel.frame.size = CGSize.zero
+        titleLabel.text = titleText
+        titleLabel.alpha = 0
+        
+        UIView.animate(withDuration: 2, animations: {
+            self.titleLabel.alpha = 1
+            self.titleLabel.layoutIfNeeded()
+        }) { (isTrue) in
+            self.navigateToMainPage(after: 0.5)
         }
     }
     
-    func navigateToMainPage(after titleText: String) {
-        Timer.scheduledTimer(withTimeInterval: 0.15 * Double((titleText.count + 1)), repeats: false) { (timer) in
+    func navigateToMainPage(after seconds: Double) {
+        Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { (timer) in
             Auth.auth().signInAnonymously { (result, error) in
                 if error != nil {
                     print(error!.localizedDescription)
                 }
-                
+
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "MainViewController")
                 UIApplication.shared.windows.first?.rootViewController = vc
