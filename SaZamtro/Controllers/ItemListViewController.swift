@@ -17,14 +17,48 @@ class ItemListViewController: UIViewController {
     //MARK: - IB Outlets
     @IBOutlet private weak var itemsCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet var footerViews: [UIView]!
     
-    override func viewDidLoad() {        
+    override func viewDidLoad() {
         activityIndicator.startAnimating()
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsViewModel.delegate = self
+        navigationController?.navigationBar.isHidden = true
         
-        itemsViewModel.getItems()
+        DownloadManager.shared.authenticate { (success) in
+            if success {
+                self.itemsViewModel.getItems()
+            } else {
+                self.displayErrorView()
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        addSaleView()
+    }
+    
+    @IBAction func facebookTapped(_ sender: UIButton) {
+        
+        if let fbURL = URL(string: ExternalLinks.fbAppLink),
+            let fbWebURL = URL(string: ExternalLinks.fbWebLink)
+        {
+            switch true {
+            case UIApplication.shared.canOpenURL(fbURL):
+                // Open page in Facebook app
+                UIApplication.shared.open(fbURL, options: [:], completionHandler: nil)
+            default:
+                //redirect to safari because the user doesn't have Facebook
+                UIApplication.shared.open(fbWebURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    @IBAction func aboutUsTapped(_ sender: UIButton) {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,18 +78,37 @@ class ItemListViewController: UIViewController {
     }
     
     private func displayErrorView() {
-        let stack = ConnectionErrorView(frame: CGRect.zero)
-        view.addSubview(stack)
-        stack.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        stack.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        stack.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        stack.button.addTarget(self, action: #selector(retry), for: .touchUpInside)
+        let errorView = ConnectionErrorView(frame: view.frame)
+        view.addSubview(errorView)
+        errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        errorView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        errorView.setupConstraints()
+        errorView.retryButton.addTarget(self, action: #selector(retry), for: .touchUpInside)
+        headerView.isHidden = true
+        footerViews.forEach{ $0.isHidden = true }
+    }
+    
+    private func addSaleView() {
+        let saleView = SaleView()
+        itemsCollectionView.contentInset.top = saleView.frame.height + ViewConstants.headerToCollectionViewSpacing
+        saleView.frame.origin.y = -saleView.frame.height - ViewConstants.headerToCollectionViewSpacing
+        itemsCollectionView.addSubview(saleView)
+        saleView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        saleView.shopNowButton.addTarget(self, action: #selector(shopNow(_:)), for: .touchUpInside)
+    }
+    
+    @objc func shopNow(_ sender: Any?) {
+        print("SHoooop Noooow!")
     }
     
     @objc func retry(_ sender: Any?) {
         self.activityIndicator.startAnimating()
-        if let button = sender as? UIButton, let stack = button.superview as? UIStackView {
-            stack.isHidden = true
+        if let button = sender as? UIButton, let errorView = button.superview {
+            errorView.isHidden = true
+            headerView.isHidden = false
+            footerViews.forEach { $0.isHidden = false }
             itemsViewModel.getItems()
         }
     }
@@ -107,7 +160,6 @@ extension ItemListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        //  TO DO
         if itemsViewModel.numberOfItems() - 1 == indexPath.item {
             itemsViewModel.getItems(currentItem: itemsViewModel.item(at: indexPath.item))
         }
@@ -128,8 +180,8 @@ extension ItemListViewController: UICollectionViewDataSource {
         if itemsViewModel.numberOfItems() != 0 {
             cell.itemImage.image = nil
             let shopItem = itemsViewModel.item(at: indexPath.item)
-            cell.itemPrice.text = "\(shopItem.itemDetails.price) \(ItemConstants.shortCurrencyText)"
-            cell.itemSize.text = shopItem.itemDetails.availableSizes.first!
+            cell.itemPrice.text = "\(ItemConstants.shortCurrencyText)\(shopItem.itemDetails.price)"
+//            cell.itemSize.text = shopItem.itemDetails.availableSizes.first!
             cell.itemName.text = shopItem.itemDetails.title
                     
             switch shopItem.itemImage.state {
@@ -152,10 +204,9 @@ extension ItemListViewController: UICollectionViewDataSource {
 extension ItemListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let d: CGFloat = 20
-        let heightToWidthRatio = 1.5
+        let d: CGFloat = ViewConstants.cellInsetSpacing
         let width = (itemsCollectionView.frame.width - d) / 2
-        let height = width * CGFloat(heightToWidthRatio)
+        let height = width * CGFloat(ViewConstants.cellHeightToWidthRatio)
         
         return CGSize(width: width, height: height)
     }

@@ -8,67 +8,94 @@
 
 import UIKit
 
-class ConnectionErrorView: UIStackView {
+class ConnectionErrorView: UIView {
     
-    let button = UIButton(type: .custom)
-    let label = UILabel(frame: CGRect.zero)
+    lazy var retryButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle(TextConstants.retry, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.tintColor = .black
+        button.layer.cornerRadius = ViewConstants.buttonCornerRadius
+        button.layer.borderWidth = ViewConstants.buttonBorderWidth
+        button.layer.borderColor = UIColor.black.cgColor
+        button.contentEdgeInsets = UIEdgeInsets(
+            top: ViewConstants.retryButtonTopSpacing,
+            left: ViewConstants.retryButtonSideSpacing,
+            bottom: ViewConstants.retryButtonTopSpacing,
+            right: ViewConstants.retryButtonSideSpacing
+        )
+        button.translatesAutoresizingMaskIntoConstraints = false
 
+        return button
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = TextConstants.errorTitleText
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var textLabel: UILabel = {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = TextConstants.errorPageText
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    lazy var errorImageView: UIImageView = {
+        let errorImage = UIImage(named: ImageConstants.retryImage)
+        let imageView = UIImageView(image: errorImage)
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupStackView()
+        
+        self.addSubview(titleLabel)
+        self.addSubview(errorImageView)
+        self.addSubview(textLabel)
+        self.addSubview(retryButton)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
     }
     
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func setupStackView() {
-        setupButton()
-        setupLabel()
-        
-        self.addArrangedSubview(label)
-        self.addArrangedSubview(button)
-        self.alignment = .center
-        self.distribution = .fill
-        self.axis = .vertical
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupButton() {
-        button.setTitle("Retry ", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.4039215686, green: 0.6078431373, blue: 0.6078431373, alpha: 1), for: .normal)
-        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-        button.tintColor = #colorLiteral(red: 0.4039215686, green: 0.6078431373, blue: 0.6078431373, alpha: 1)
-        
-        let buttonWidth = button.frame.width
-        let imageWidth = button.imageView!.frame.width
-        let spacing: CGFloat = 8.0
-        button.imageEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: buttonWidth - imageWidth,
-            bottom: 0,
-            right: -(buttonWidth - imageWidth + spacing)
-        )
-        button.titleEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: -buttonWidth + spacing,
-            bottom: 0,
-            right: imageWidth - spacing
-        )
-        button.contentEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: spacing,
-            bottom: 0,
-            right: spacing
-        )
-    }
-
-    private func setupLabel() {
-        label.text = "Connection Error."
-        label.textAlignment = .center
-        label.font = .preferredFont(forTextStyle: .title1)
-        label.textColor = #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
+    func setupConstraints() {
+        retryButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        retryButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: ConstraintConstants.retryButtonToViewBottomConstraint).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        textLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        textLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: ConstraintConstants.errorTextLabelToTitleConstraint).isActive = true
+        textLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: ConstraintConstants.errorTextLabelLeadingConstraint).isActive = true
+        textLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: ConstraintConstants.errorTextLabelTrailingConstraint).isActive = true
+        errorImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        errorImageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor).isActive = true
+        errorImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: ConstraintConstants.errorImageViewLeadingConstraint).isActive = true
+        errorImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: ConstraintConstants.errorImageViewTrailingConstraint).isActive = true
+        errorImageView.addConstraint(NSLayoutConstraint(item: errorImageView,
+                                                        attribute: NSLayoutConstraint.Attribute.height,
+                                                        relatedBy: NSLayoutConstraint.Relation.equal,
+                                                        toItem: errorImageView,
+                                                        attribute: NSLayoutConstraint.Attribute.width,
+                                                        multiplier: errorImageView.frame.size.height / errorImageView.frame.size.width,
+                                                        constant: 0))
     }
 }

@@ -27,6 +27,19 @@ class DownloadManager {
         return networkAvailable
     }
     
+    func authenticate(completed: @escaping (Bool) -> Void) {
+        Auth.auth().signInAnonymously() { (authResult, error) in
+            
+            guard (authResult?.user) != nil else {
+                completed(false)
+                return
+            }
+//            let isAnonymous = user.isAnonymous
+//            let uid = user.uid
+            completed(true)
+        }
+    }
+    
     func fetchItemDetails(completion: @escaping (Result<[ItemDetails], Error>) -> ()) {
         var items = [ItemDetails]()
         let query: Query

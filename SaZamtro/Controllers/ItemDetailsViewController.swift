@@ -18,7 +18,7 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var itemImage: UIImageView! {
         didSet {
-            itemImage.layer.cornerRadius = 20
+            itemImage.layer.cornerRadius = ViewConstants.imageCornerRadius
         }
     }
     @IBOutlet weak var itemDescription: UILabel!
@@ -65,7 +65,7 @@ class ItemDetailsViewController: UIViewController {
         
         title = item.itemDetails.title
         itemBrand.text = "\(ItemConstants.brandText): \(item.itemDetails.brand)"
-        itemPrice.text = "\(ItemConstants.priceText): \(item.itemDetails.price) \(ItemConstants.longCurrencyText)"
+        itemPrice.text = "\(ItemConstants.shortCurrencyText)\(item.itemDetails.price) "
         itemSize.text = "\(ItemConstants.sizeText): \(item.itemDetails.availableSizes.first!)"
         itemDescription.text = item.itemDetails.description
     }
@@ -74,7 +74,7 @@ class ItemDetailsViewController: UIViewController {
         scrollView.isHidden = true
         
         let label = UILabel(frame: CGRect.zero)
-        label.text = "Nothing to show...\nPlease retry."
+        label.text = TextConstants.nothingToShowText
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .title1)
         label.textColor = #colorLiteral(red: 0.4039215686, green: 0.6078431373, blue: 0.6078431373, alpha: 1)
