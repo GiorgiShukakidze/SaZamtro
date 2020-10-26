@@ -10,6 +10,7 @@ import Foundation
 
 class Cart {
     private var items = [Item]()
+    let shared = Cart()
     var totalPrice: Double {
         var sum = 0.0
         for item in items {

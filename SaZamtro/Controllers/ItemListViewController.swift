@@ -10,14 +10,12 @@ import UIKit
 
 class ItemListViewController: UIViewController {
     
-    private var selectedItem: Item?
     private lazy var itemsViewModel = ItemsViewModel()
-    let cart = Cart()
     
     //MARK: - IB Outlets
     @IBOutlet private weak var itemsCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var cartButton: UIBarButtonItem!
     @IBOutlet var footerViews: [UIView]!
     
     override func viewDidLoad() {
@@ -25,8 +23,7 @@ class ItemListViewController: UIViewController {
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsViewModel.delegate = self
-        navigationController?.navigationBar.isHidden = true
-        
+         
         DownloadManager.shared.authenticate { (success) in
             if success {
                 self.itemsViewModel.getItems()
@@ -41,6 +38,8 @@ class ItemListViewController: UIViewController {
         
         addSaleView()
     }
+    
+    //MARK: - IBActions
     
     @IBAction func facebookTapped(_ sender: UIButton) {
         
@@ -58,11 +57,20 @@ class ItemListViewController: UIViewController {
         }
     }
     
+    @IBAction func moreTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    @IBAction func cartTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    
     @IBAction func aboutUsTapped(_ sender: UIButton) {
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let shopItem = selectedItem,
+        if let shopItem = sender as? Item,
             segue.identifier == ViewConstants.segueIdentifier {
             
             let destinationVC = segue.destination as! ItemDetailsViewController
@@ -80,13 +88,10 @@ class ItemListViewController: UIViewController {
     private func displayErrorView() {
         let errorView = ConnectionErrorView(frame: view.frame)
         view.addSubview(errorView)
-        errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        errorView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        errorView.snap(to: view)
         errorView.setupConstraints()
         errorView.retryButton.addTarget(self, action: #selector(retry), for: .touchUpInside)
-        headerView.isHidden = true
+        navigationController?.navigationBar.isHidden = true
         footerViews.forEach{ $0.isHidden = true }
     }
     
@@ -105,9 +110,10 @@ class ItemListViewController: UIViewController {
     
     @objc func retry(_ sender: Any?) {
         self.activityIndicator.startAnimating()
+        
         if let button = sender as? UIButton, let errorView = button.superview {
             errorView.isHidden = true
-            headerView.isHidden = false
+            navigationController?.navigationBar.isHidden = false
             footerViews.forEach { $0.isHidden = false }
             itemsViewModel.getItems()
         }
@@ -154,9 +160,9 @@ extension ItemListViewController: ItemsViewModelDelegate {
 extension ItemListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedItem = itemsViewModel.item(at: indexPath.item)
+        let item = itemsViewModel.item(at: indexPath.item)
         
-        performSegue(withIdentifier: ViewConstants.segueIdentifier, sender: self)
+        performSegue(withIdentifier: ViewConstants.segueIdentifier, sender: item)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -179,10 +185,11 @@ extension ItemListViewController: UICollectionViewDataSource {
                 
         if itemsViewModel.numberOfItems() != 0 {
             cell.itemImage.image = nil
+            
             let shopItem = itemsViewModel.item(at: indexPath.item)
             cell.itemPrice.text = "\(ItemConstants.shortCurrencyText)\(shopItem.itemDetails.price)"
-//            cell.itemSize.text = shopItem.itemDetails.availableSizes.first!
             cell.itemName.text = shopItem.itemDetails.title
+            cell.discountLabel.isHidden = shopItem.itemDetails.price > 100
                     
             switch shopItem.itemImage.state {
             case .downloaded:
@@ -222,5 +229,14 @@ extension UIImageView {
                             self.image = image
         },
                           completion: nil)
+    }
+}
+
+extension UIView {
+    func snap(to view: UIView) {
+        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

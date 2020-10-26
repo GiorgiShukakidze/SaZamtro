@@ -8,14 +8,15 @@
 
 import UIKit
 
-class ItemDetailsViewController: UIViewController {
+class ItemDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var shopItem: Item?
-    var cart: Cart?
+    var cart: Cart.shared
     
     //MARK: - IBOutlets
     
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var discountLabel: DiscountLabel!
     @IBOutlet weak var itemImage: UIImageView! {
         didSet {
             itemImage.layer.cornerRadius = ViewConstants.imageCornerRadius
@@ -26,9 +27,17 @@ class ItemDetailsViewController: UIViewController {
     @IBOutlet weak var itemBrand: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var addToCartButton: UIButton!
+    @IBOutlet weak var cartImage: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupView()
+    }
+    
+    private func setupView() {
+        navigationItem.hidesBackButton = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height/2
         if let item = shopItem {
@@ -38,10 +47,18 @@ class ItemDetailsViewController: UIViewController {
         }
     }
     
+//    @objc func dis() {
+//        dismiss(animated: true, completion: nil)
+//    }
+    
     @IBAction func addToCart(_ sender: UIButton) {
+        cart.addToCart(shopItem)
     }
     
-//MARK: - Utilities
+    @IBAction func backTapped(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    //MARK: - Utilities
     
     private func setupItemDetails(with item: Item) {
         
@@ -62,12 +79,11 @@ class ItemDetailsViewController: UIViewController {
                 }
             }
         }
-        
-        title = item.itemDetails.title
-        itemBrand.text = "\(ItemConstants.brandText): \(item.itemDetails.brand)"
+        discountLabel.isHidden = item.itemDetails.price > 100
+        itemBrand.text = "\(item.itemDetails.brand)"
         itemPrice.text = "\(ItemConstants.shortCurrencyText)\(item.itemDetails.price) "
-        itemSize.text = "\(ItemConstants.sizeText): \(item.itemDetails.availableSizes.first!)"
-        itemDescription.text = item.itemDetails.description
+        itemSize.text = "\(item.itemDetails.availableSizes.first!)"
+        itemDescription.text = item.itemDetails.title
     }
     
     private func DisplayNothingToShow() {
