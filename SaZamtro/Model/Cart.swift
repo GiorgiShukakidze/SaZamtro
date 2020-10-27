@@ -9,8 +9,14 @@
 import Foundation
 
 class Cart {
+    struct NotificationKeys {
+        static let cartDidChange = "cartDidChange"
+    }
+    
+    static let shared = Cart()
+
     private var items = [Item]()
-    let shared = Cart()
+        
     var totalPrice: Double {
         var sum = 0.0
         for item in items {
@@ -33,9 +39,17 @@ class Cart {
     
     func addToCart(item: Item) {
         items.append(item)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKeys.cartDidChange), object: nil)
+    }
+    
+    func removeItem(at index: Int) {
+        guard index < items.count else { return }
+        items.remove(at: index)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKeys.cartDidChange), object: nil)
     }
     
     func emptyCart() {
         items.removeAll()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationKeys.cartDidChange), object: nil)
     }
 }

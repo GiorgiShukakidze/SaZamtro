@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F3FD5412548A302007EE1DC /* CartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FD5402548A302007EE1DC /* CartCollectionViewCell.swift */; };
+		3F754FC925476882008BFE5A /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F754FC825476882008BFE5A /* CartViewController.swift */; };
 		8A3012B543E2677463FC45EB /* Pods_SaZamtro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6807E586364CD978CCD952 /* Pods_SaZamtro.framework */; };
 		CB01A5C72497C50300AC747F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB01A5C62497C50300AC747F /* GoogleService-Info.plist */; };
 		CB01A5C92498B9EE00AC747F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB01A5C82498B9EE00AC747F /* User.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F3FD5402548A302007EE1DC /* CartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionViewCell.swift; sourceTree = "<group>"; };
+		3F754FC825476882008BFE5A /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		5CFC44CAEF9C5E6B19B213C3 /* Pods-SaZamtro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaZamtro.release.xcconfig"; path = "Target Support Files/Pods-SaZamtro/Pods-SaZamtro.release.xcconfig"; sourceTree = "<group>"; };
 		8C6807E586364CD978CCD952 /* Pods_SaZamtro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SaZamtro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CAB0D85B5E653247D81D4A3 /* Pods-SaZamtro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaZamtro.debug.xcconfig"; path = "Target Support Files/Pods-SaZamtro/Pods-SaZamtro.debug.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 				CB7BE0D224AA63B100A72F88 /* ItemsViewModel.swift */,
 				CB33D2C5247ACB7800B44888 /* ItemListViewController.swift */,
 				CB52CC14247B166300B4C32C /* ItemDetailsViewController.swift */,
+				3F754FC825476882008BFE5A /* CartViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				CB6CC8B124F9886A00237C54 /* DiscountLabel.swift */,
 				CB6CC8B324F99B2E00237C54 /* SizeLabel.swift */,
 				CB33D2DE247AE6CC00B44888 /* SellItemCell.swift */,
+				3F3FD5402548A302007EE1DC /* CartCollectionViewCell.swift */,
 				CBF5E68124E843CF00A6C14F /* ConnectionErrorView.swift */,
 				CBE7A96124EE674600F4B13B /* SaleView.swift */,
 				CB6CC8AB24F937CB00237C54 /* NavigationBar.xib */,
@@ -307,7 +313,9 @@
 				CBA7A7D624DC663B0069EF81 /* Cart.swift in Sources */,
 				CB7BE0D324AA63B100A72F88 /* ItemsViewModel.swift in Sources */,
 				CB79905324A37B8000D13919 /* DownloadManager.swift in Sources */,
+				3F3FD5412548A302007EE1DC /* CartCollectionViewCell.swift in Sources */,
 				CB09A627248F9E0700D0B91D /* ItemDetails.swift in Sources */,
+				3F754FC925476882008BFE5A /* CartViewController.swift in Sources */,
 				CB33D2C2247ACB7800B44888 /* AppDelegate.swift in Sources */,
 				CB6CC8B224F9886A00237C54 /* DiscountLabel.swift in Sources */,
 				CB5C870D24D8659B00838172 /* Item.swift in Sources */,

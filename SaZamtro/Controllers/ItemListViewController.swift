@@ -15,15 +15,16 @@ class ItemListViewController: UIViewController {
     //MARK: - IB Outlets
     @IBOutlet private weak var itemsCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var cartButton: UIBarButtonItem!
     @IBOutlet var footerViews: [UIView]!
+    @IBOutlet weak var cartButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         activityIndicator.startAnimating()
         itemsCollectionView.delegate = self
         itemsCollectionView.dataSource = self
         itemsViewModel.delegate = self
-         
+        updateCart()
+        
         DownloadManager.shared.authenticate { (success) in
             if success {
                 self.itemsViewModel.getItems()
@@ -31,6 +32,7 @@ class ItemListViewController: UIViewController {
                 self.displayErrorView()
             }
         }
+        setupObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,10 +62,6 @@ class ItemListViewController: UIViewController {
     @IBAction func moreTapped(_ sender: UIBarButtonItem) {
         
     }
-    @IBAction func cartTapped(_ sender: UIBarButtonItem) {
-        
-    }
-    
     
     @IBAction func aboutUsTapped(_ sender: UIButton) {
         
@@ -102,6 +100,14 @@ class ItemListViewController: UIViewController {
         itemsCollectionView.addSubview(saleView)
         saleView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         saleView.shopNowButton.addTarget(self, action: #selector(shopNow(_:)), for: .touchUpInside)
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCart), name: NSNotification.Name(rawValue: Cart.NotificationKeys.cartDidChange), object: nil)
+    }
+    
+    @objc func updateCart() {
+        cartButton.image = Cart.shared.itemsInCart().count > 0 ? UIImage(named: "cart_full") : UIImage(named: "cart_empty")
     }
     
     @objc func shopNow(_ sender: Any?) {

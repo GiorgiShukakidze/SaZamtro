@@ -11,7 +11,7 @@ import UIKit
 class ItemDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var shopItem: Item?
-    var cart: Cart.shared
+    var cart = Cart.shared
     
     //MARK: - IBOutlets
     
@@ -33,6 +33,11 @@ class ItemDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         setupView()
+        setupObservers()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func setupView() {
@@ -40,6 +45,7 @@ class ItemDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height/2
+        updateCart()
         if let item = shopItem {
             setupItemDetails(with: item)
         } else {
@@ -47,12 +53,21 @@ class ItemDetailsViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCart), name: NSNotification.Name(rawValue: Cart.NotificationKeys.cartDidChange), object: nil)
+    }
+    
+    @objc func updateCart() {
+        cartImage.image = cart.itemsInCart().count > 0 ? UIImage(named: "cart_full") : UIImage(named: "cart_empty")
+    }
 //    @objc func dis() {
 //        dismiss(animated: true, completion: nil)
 //    }
     
     @IBAction func addToCart(_ sender: UIButton) {
-        cart.addToCart(shopItem)
+        if let selectedItem = shopItem {
+            cart.addToCart(item: selectedItem)
+        }
     }
     
     @IBAction func backTapped(_ sender: UIButton) {
